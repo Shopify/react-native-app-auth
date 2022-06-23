@@ -1,0 +1,2 @@
+include ":appauth-android"
+project(":appauth-android").projectDir = file("../appauth-android/library")

@@ -1,0 +1,3 @@
+[submodule "appauth-android"]
+	path = appauth-android
+	url = https://github.com/shopify/appauth-android

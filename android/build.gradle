@@ -1,37 +1,53 @@
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
 buildscript {
     // The Android Gradle plugin is only required when opening the android folder stand-alone.
     // This avoids unnecessary downloads and potential conflicts when the library is included as a
     // module dependency in an application project.
-    if (project == rootProject) {
-        repositories {
-            mavenCentral()
-            google()
-        }
-        dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.3'
-        }
+    // if (project == rootProject) {
+    repositories {
+        mavenCentral()
+        google()
     }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+    // }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    compileSdkVersion 31
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 26)
-        versionCode 1
-        versionName "1.0"
-        manifestPlaceholders = [
-                'appAuthRedirectScheme': 'please.override.me'
-        ]
+        minSdkVersion 16
+        targetSdkVersion 31
+        versionCode 'Release'
+        versionName '0.11.0'
     }
-    lintOptions {
-        abortOnError false
+    sourceSets {
+        main.manifest.srcFile 'AndroidManifest.xml'
+        main.java.srcDirs = ['java']
+        main.aidl.srcDirs = ['java']
+        main.res.srcDir 'res'
+        main.assets.srcDir 'assets'
+        main.resources.srcDir 'java'
+        test.setRoot('javatests')
+        test.java.srcDir('javatests')
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        warningsAsErrors true
+        disable 'InvalidPackage', 'TrulyRandom', 'UseCompoundDrawables', 'GradleDependency'
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 }
 

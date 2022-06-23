@@ -1,8 +1,30 @@
+
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'org.ajoberstar.grgit:grgit-gradle:4.1.1'
+        classpath 'org.jacoco:org.jacoco.core:0.8.7'
+    }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-ext {
+subprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+def compileSdkVersion = 31
+project.ext {
     minSdkVersion = 16
     compileSdkVersion = 31
 
@@ -25,10 +47,60 @@ def versionName = 'Release'
 def versionNum = '0.11.0'
 def versionDate = new Date()
 
+android {
+    compileSdkVersion 31
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 31
+        versionCode 'Release'
+        versionName '0.11.0'
+    }
+    sourceSets {
+        main.manifest.srcFile 'AndroidManifest.xml'
+        main.java.srcDirs = ['java']
+        main.aidl.srcDirs = ['java']
+        main.res.srcDir 'res'
+        main.assets.srcDir 'assets'
+        main.resources.srcDir 'java'
+        test.setRoot('javatests')
+        test.java.srcDir('javatests')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        warningsAsErrors true
+        disable 'InvalidPackage', 'TrulyRandom', 'UseCompoundDrawables', 'GradleDependency'
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
 group = GROUP
 version = rootProject.versionName
 
 project.archivesBaseName = 'appauth'
+
+// produces just the classes JAR
+task jar(type: Copy, dependsOn:'bundleRelease') {
+    from("${project.buildDir}/intermediates/bundles/release/")
+    into("${project.buildDir}/libs/")
+    include('classes.jar')
+    rename('classes.jar', "appauth-${rootProject.versionName}.jar")
+}
+
+// produces a JAR containing sources
+task sourcesJar(type: Jar, dependsOn:'generateReleaseSources') {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
+}
 
 android.testOptions {
     unitTests.includeAndroidResources = true

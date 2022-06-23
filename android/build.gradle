@@ -6,15 +6,15 @@ buildscript {
     // The Android Gradle plugin is only required when opening the android folder stand-alone.
     // This avoids unnecessary downloads and potential conflicts when the library is included as a
     // module dependency in an application project.
-    if (project == rootProject) {
-        repositories {
-            mavenCentral()
-            google()
-        }
-        dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.3'
-        }
+    // if (project == rootProject) {
+    repositories {
+        mavenCentral()
+        google()
     }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+    // }
 }
 
 apply plugin: 'com.android.library'

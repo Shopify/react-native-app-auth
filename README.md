@@ -1,3 +1,11 @@
+# Shopify Modifications
+
+AppAuth has been forked in order to relax ID token validation time offset for POS hardware devices which will not have the exact time set on launch.
+
+1. AppAuth-Android has been added as a subtree `git subtree add --prefix appauth-android https://github.com/shopify/appauth-android master --squash`
+2. Version numbers were added directly in appauth-android/library/build.gradle
+
+
 <p align="center"><img src="https://raw.githubusercontent.com/FormidableLabs/react-native-app-auth/main/docs/react-native-app-auth-logo.png" width=224></p>
 <h2 align="center">React Native App Auth</h2>
 <p align="center">

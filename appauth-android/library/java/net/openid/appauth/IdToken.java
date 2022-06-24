@@ -57,10 +57,10 @@ public class IdToken {
     private static final Long ONE_HOUR_IN_SECONDS = 3600L;
     /**
      * POS First party hardware does not have the proper time set on it at login, this change
-     * relaxes the time verification to allow the time to be wrong by up to +/-16 hours instead of
+     * relaxes the time verification to allow the time to be wrong by up to +/-24 hours instead of
      * 10 mins
      */
-    private static final Long POS_EXTRA_TIME_BUFFER_IN_SECONDS = 16 * ONE_HOUR_IN_SECONDS;
+    private static final Long POS_EXTRA_TIME_BUFFER_IN_SECONDS = 24 * ONE_HOUR_IN_SECONDS;
 
     private static final Set<String> BUILT_IN_CLAIMS = builtInParams(
             KEY_ISSUER,

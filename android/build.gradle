@@ -57,5 +57,5 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
     implementation project(':appauth-android')
-    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'androidx.browser:browser:1.3.0'
 }

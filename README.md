@@ -1,3 +1,23 @@
+# Shopify Update Process
+
+react-native-app-auth is branched in order to support relaxing the time constraints since first party POS hardware does not have the time set correctly on first launch.
+
+## Update react-native-app-auth
+```
+dev clone react-native-app-auth
+git remote add react-native-app-auth-upstream https://github.com/FormidableLabs/react-native-app-auth.git
+git checkout branchnameofcurrent1 // branch package.json is pointed too
+git checkout -b branchnameofcurrent2 // create branch with version number
+git merge react-native-app-auth-upstream/main
+```
+
+## Update subtree
+AppAuth-Android was brought in as a git subtree in order to relax the time constraints on the subtree validation.
+
+```
+ git subtree pull --prefix appauth-android https://github.com/openid/AppAuth-Android.git master --squash
+```
+
 # Shopify Modifications
 
 AppAuth has been forked in order to relax ID token validation time offset for POS hardware devices which will not have the exact time set on launch.

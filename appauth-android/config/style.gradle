@@ -7,6 +7,8 @@ checkstyle {
 }
 
 task checkAllSource(type: Checkstyle) {
+    project.configurations.implementation.setCanBeResolved(true)
+    project.configurations.api.setCanBeResolved(true)
     afterEvaluate {
         source 'java'
         include '**/*.java'

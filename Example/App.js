@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useMemo} from 'react';
-import {UIManager, Alert} from 'react-native';
+import {Alert} from 'react-native';
 import {
   authorize,
   refresh,
@@ -18,16 +18,16 @@ import {
 
 const configs = {
   identityserver: {
-    issuer: 'https://demo.identityserver.io',
+    issuer: 'https://demo.duendesoftware.com',
     clientId: 'interactive.public',
     redirectUrl: 'io.identityserver.demo:/oauthredirect',
     additionalParameters: {},
     scopes: ['openid', 'profile', 'email', 'offline_access'],
 
     // serviceConfiguration: {
-    //   authorizationEndpoint: 'https://demo.identityserver.io/connect/authorize',
-    //   tokenEndpoint: 'https://demo.identityserver.io/connect/token',
-    //   revocationEndpoint: 'https://demo.identityserver.io/connect/revoke'
+    //   authorizationEndpoint: 'https://demo.duendesoftware.com/connect/authorize',
+    //   tokenEndpoint: 'https://demo.duendesoftware.com/connect/token',
+    //   revocationEndpoint: 'https://demo.duendesoftware.com/connect/revoke'
     // }
   },
   auth0: {
@@ -64,26 +64,24 @@ const App = () => {
     });
   }, []);
 
-  const handleAuthorize = useCallback(
-    async provider => {
-      try {
-        const config = configs[provider];
-        const newAuthState = await authorize({
-          ...config,
-          connectionTimeoutSeconds: 5,
-        });
+  const handleAuthorize = useCallback(async provider => {
+    try {
+      const config = configs[provider];
+      const newAuthState = await authorize({
+        ...config,
+        connectionTimeoutSeconds: 5,
+        iosPrefersEphemeralSession: true,
+      });
 
-        setAuthState({
-          hasLoggedInOnce: true,
-          provider: provider,
-          ...newAuthState,
-        });
-      } catch (error) {
-        Alert.alert('Failed to log in', error.message);
-      }
-    },
-    [authState],
-  );
+      setAuthState({
+        hasLoggedInOnce: true,
+        provider: provider,
+        ...newAuthState,
+      });
+    } catch (error) {
+      Alert.alert('Failed to log in', error.message);
+    }
+  }, []);
 
   const handleRefresh = useCallback(async () => {
     try {

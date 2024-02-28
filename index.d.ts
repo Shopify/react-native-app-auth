@@ -79,11 +79,23 @@ export type AuthConfiguration = BaseAuthConfiguration & {
   usePKCE?: boolean;
   warmAndPrefetchChrome?: boolean;
   skipCodeExchange?: boolean;
+  iosCustomBrowser?: 'safari' | 'chrome' | 'opera' | 'firefox';
+  androidAllowCustomBrowsers?: (
+    | 'chrome'
+    | 'chromeCustomTab'
+    | 'firefox'
+    | 'firefoxCustomTab'
+    | 'samsung'
+    | 'samsungCustomTab'
+  )[];
+  androidTrustedWebActivity?: boolean;
+  iosPrefersEphemeralSession?: boolean;
 };
 
 export type EndSessionConfiguration = BaseAuthConfiguration & {
   additionalParameters?: { [name: string]: string };
   dangerouslyAllowInsecureHttpRequests?: boolean;
+  iosPrefersEphemeralSession?: boolean;
 };
 
 export interface AuthorizeResult {
@@ -176,7 +188,8 @@ type AppAuthErrorCode =
   | 'registration_failed'
   | 'browser_not_found'
   | 'end_session_failed'
-  | 'authentication_error';
+  | 'authentication_error'
+  | 'run_time_exception';
 
 type ErrorCode =
   | OAuthAuthorizationErrorCode

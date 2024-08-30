@@ -22,7 +22,8 @@
     "android",
     "ios",
     "index.d.ts",
-    "react-native-app-auth.podspec"
+    "react-native-app-auth.podspec",
+    "appauth-android"
   ],
   "repository": {
     "type": "git",
